@@ -1,4 +1,6 @@
+import Axios from 'axios';
 import React, { Component } from 'react';
+import axios from 'axios'
 
 export default class AddTreasure extends Component {
   constructor() {
@@ -13,6 +15,13 @@ export default class AddTreasure extends Component {
   }
 
   addTreasure() {
+    const {treasureURL} = this.state
+    axios.post('/api/treasure/user', {treasureURL: treasureURL}).then(res => {
+      this.props.addMyTreasure(res.data)
+      this.setState({
+        treasureURL: ''
+      })
+    }).catch(err => err.response.request.response)
     // post to /api/treasure/user here
   }
 
